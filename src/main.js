@@ -20,13 +20,13 @@ function getTodoForm() {
 function createTodoElement(todo) {
   const li = document.createElement('li');
   li.classList.add('todo-item');
-  if (todo.completed) li.classList.add('completed');
+  if (todo.done) li.classList.add('completed');
   li.dataset.id = todo.id;
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.className = 'todo-checkbox';
-  checkbox.checked = todo.completed;
+  checkbox.checked = todo.done;
   checkbox.setAttribute('aria-label', `완료: ${todo.content}`);
 
   const span = document.createElement('span');
@@ -79,9 +79,9 @@ async function addTodo(text) {
 async function toggleTodo(id) {
   const todo = todos.find(t => t.id === id);
   if (!todo) return;
-  const updated = await apiToggleTodo(id, !todo.completed);
-  todo.completed = updated.completed;
-  updateTodoElement(id, todo.completed);
+  const updated = await apiToggleTodo(id, !todo.done);
+  todo.done = updated.done;
+  updateTodoElement(id, todo.done);
 }
 
 async function deleteTodo(id) {
